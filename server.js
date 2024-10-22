@@ -10,36 +10,36 @@ const USERNAME = process.env.GITHUB_USERNAME;
 
 app.use(express.static(path.join(__dirname, "public")));
 
+async function fetchAllPages(url) {
+  let page = 1;
+  const results = [];
+
+  while (true) {
+    try {
+      const response = await axios.get(`${url}?per_page=100&page=${page}`);
+      const data = response.data;
+      if (data.length === 0) break;
+      results.push(...data);
+      page++;
+    } catch (error) {
+      console.error(
+        `☹️ Error fetching from ${url}: ${error.response?.status || error.message}`
+      );
+      break;
+    }
+  }
+  return results;
+}
+
 async function getFollowers() {
   const url = `https://api.github.com/users/${USERNAME}/followers`;
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.error(
-      `☹️ Error fetching your followers: ${
-        error.response?.status || error.message
-      }`
-    );
-    return [];
-  }
+  return fetchAllPages(url);
 }
 
 async function getFollowing() {
   const url = `https://api.github.com/users/${USERNAME}/following`;
-  try {
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.error(
-      `☹️ Error fetching users you are following: ${
-        error.response?.status || error.message
-      }`
-    );
-    return [];
-  }
+  return fetchAllPages(url);
 }
-
 app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
