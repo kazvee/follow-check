@@ -1,10 +1,10 @@
 # Follow Check
 
-Follow Check is a web app to help you check your GitHub following relationships.
+**Follow Check** is a web app to help you check your GitHub following relationships.
 
 Running this tool will display 2 lists:
-1) Users who follow you, but you do not follow them back
-2) Users you follow, but they do not follow you back
+1) Users who follow you, but you don’t follow back
+2) Users you follow, but who don’t follow you back
 
 ## Final Product
 
@@ -23,7 +23,7 @@ This project was created by [me](https://github.com/kazvee) as a learning projec
 
 ## Installation
 
-- Fork this repository to your own Github account
+- Fork this repository to your own GitHub account
 - Clone your fork onto your local device
 - Install all dependencies with `npm i` (or `npm install`)
 - Create a new `.env` file with your GitHub username (check `.env.example` file for guidance)
